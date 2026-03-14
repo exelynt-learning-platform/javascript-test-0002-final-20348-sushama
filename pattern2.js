@@ -1,28 +1,29 @@
 // pattern2.js
-// Generates the decreasing number pattern using Pascal's triangle logic
+const TOTAL_ROWS = 5;
 
-const ROWS = 5; // Total rows
+function generateRow(rowIndex) {
+    const n = TOTAL_ROWS - rowIndex + 1; // number of elements
+    const nums = [];
 
-// Function to calculate binomial coefficient C(n, k)
-function binomial(n, k) {
-    let res = 1;
-    for (let i = 0; i < k; i++) {
-        res *= (n - i);
-        res /= (i + 1);
+    if (rowIndex === 1) {
+        // Top row fixed numbers
+        nums.push(1, 4, 6, 4, 1);
+    } else if (rowIndex === 2) {
+        nums.push(1, 3, 3, 1);
+    } else if (rowIndex === 3) {
+        nums.push(1, 2, 1);
+    } else if (rowIndex === 4) {
+        nums.push(1, 1);
+    } else {
+        nums.push(1);
     }
-    return res;
+
+    return nums;
 }
 
-// Function to print a single row with proper leading spaces
-function printRow(numbers, spaces) {
-    console.log(' '.repeat(spaces) + numbers.join(' '));
-}
-
-// Generate pattern
-for (let i = ROWS; i >= 1; i--) {
-    let rowNumbers = [];
-    for (let j = 0; j < i; j++) {
-        rowNumbers.push(binomial(i - 1, j));
-    }
-    printRow(rowNumbers, ROWS - i); // leading spaces for alignment
+// Print the pattern with proper leading spaces
+for (let row = 1; row <= TOTAL_ROWS; row++) {
+    const spaces = ' '.repeat(row - 1);
+    const rowNumbers = generateRow(row);
+    console.log(spaces + rowNumbers.join(' '));
 }
